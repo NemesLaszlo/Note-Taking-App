@@ -1,0 +1,46 @@
+{
+  "name": "note-taking-app",
+  "version": "1.0.0",
+  "description": "Note taking application where you can log in with your google account, take notes, share notes with your friends (other accounts) using public notes.",
+  "main": "app.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node app",
+    "dev": "cross-env NODE_ENV=development nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NemesLaszlo/Note-Taking-App.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "mongodb",
+    "handlebars",
+    "google-auth"
+  ],
+  "author": "Laszlo Nemes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NemesLaszlo/Note-Taking-App/issues"
+  },
+  "homepage": "https://github.com/NemesLaszlo/Note-Taking-App#readme",
+  "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
+    "connect-mongo": "^3.2.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0",
+    "express-session": "^1.17.1",
+    "handlebars": "^4.7.6",
+    "method-override": "^3.0.0",
+    "moment": "^2.27.0",
+    "mongoose": "^5.10.2",
+    "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "nodemon": "^2.0.4"
+  }
+}
