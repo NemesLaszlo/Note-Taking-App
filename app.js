@@ -8,6 +8,8 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const connectDB = require('./database/database');
 const MongoStore = require('connect-mongo')(session);
+// Handlebars Helper
+const { formatDate, stripTags, truncate } = require('./helpers/hbs');
 
 // Load config and Database connection
 dotenv.config({ path: './config/config.env' });
@@ -29,7 +31,14 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Handlebars
-app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }));
+app.engine(
+  '.hbs',
+  exphbs({
+    helpers: { formatDate, stripTags, truncate },
+    defaultLayout: 'main',
+    extname: '.hbs',
+  })
+);
 app.set('view engine', '.hbs');
 
 // Session middleware

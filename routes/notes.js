@@ -22,4 +22,20 @@ router.post('/', ensureAuth, async (req, res) => {
   }
 });
 
+// @desc Get All Public Notes - "Shared with others"
+// @route GET /notes/
+router.get('/', ensureAuth, async (req, res) => {
+  try {
+    const notes = await Note.find({ status: 'public' })
+      .populate('user')
+      .sort({ createdAt: 'desc' })
+      .lean();
+
+    res.render('notes/index', { notes });
+  } catch (error) {
+    console.error(error);
+    res.render('error/500');
+  }
+});
+
 module.exports = router;
