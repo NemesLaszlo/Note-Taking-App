@@ -1,3 +1,27 @@
 <h6>Dashboard</h6>
 <h3>Welcome {{name}}</h3>
 <p>Your notes</p>
+{{#if notes}}
+<table class="striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each notes}}
+        <tr>
+            <td><a href="/notes/{{_id}}"></a>{{title}}</td>
+            <td>{{createdAt}}</td>
+            <td><span class="dash-status">{{status}}</span></td>
+            <td></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{else}}
+<p>You have not created any notes!</p>
+{{/if}}
