@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col s12 m8">
+        <h3>{{note.title}}
+            <small>{{{editIcon note.user user note._id false}}}</small>
+        </h3>
+        <div class="card story">
+            <div class="card-content">
+                <span class="card-title">{{formatDate note.createdAt 'MMMM Do YYYY, h:mm:ss a'}}</span>
+                {{{note.body}}}
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m4">
+        <div class="card center-align">
+            <div class="card-content">
+                <span class="card-title">{{note.user.displayName}}</span>
+                <img src="{{note.user.image}}" class="circle responsive-img img-small">
+            </div>
+            <div class="card-action">
+                <a href="/notes/user/{{note.user._id}}">More From {{note.user.firstName}}</a>
+            </div>
+        </div>
+    </div>
+</div>

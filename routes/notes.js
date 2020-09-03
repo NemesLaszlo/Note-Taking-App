@@ -38,6 +38,29 @@ router.get('/', ensureAuth, async (req, res) => {
   }
 });
 
+// @desc Get Single note
+// @route GET /notes/:id
+router.get('/:id', ensureAuth, async (req, res) => {
+  try {
+    let note = await Note.findById(req.params.id).populate('user').lean();
+
+    if (!note) {
+      return res.render('error/404');
+    }
+
+    if (note.user._id != req.user.id && note.status == 'private') {
+      res.render('error/404');
+    } else {
+      res.render('notes/show', {
+        note,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    res.render('error/404');
+  }
+});
+
 // @desc Get Edit Page
 // @route GET /notes/edit/:id
 router.get('/edit/:id', ensureAuth, async (req, res) => {
@@ -104,6 +127,24 @@ router.delete('/:id', ensureAuth, async (req, res) => {
       await Note.remove({ _id: req.params.id });
       res.redirect('/dashboard');
     }
+  } catch (error) {
+    console.error(error);
+    res.render('error/500');
+  }
+});
+
+// @desc Get User public notes
+// @route GET /notes/user/:userId
+router.get('/user/:userId', ensureAuth, async (req, res) => {
+  try {
+    const notes = await Note.find({
+      user: req.params.userId,
+      status: 'public',
+    })
+      .populate('user')
+      .lean();
+
+    res.render('notes/index', { notes });
   } catch (error) {
     console.error(error);
     res.render('error/500');
