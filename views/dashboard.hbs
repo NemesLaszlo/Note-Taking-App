@@ -14,7 +14,7 @@
     <tbody>
         {{#each notes}}
         <tr>
-            <td><a href="/notes/{{_id}}"></a>{{title}}</td>
+            <td><a href="/notes/{{_id}}">{{title}}</a></td>
             <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
             <td><span class="dash-status">{{status}}</span></td>
             <td></td>

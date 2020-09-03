@@ -38,4 +38,44 @@ router.get('/', ensureAuth, async (req, res) => {
   }
 });
 
+// @desc Get Edit Page
+// @route GET /notes/edit/:id
+router.get('/edit/:id', ensureAuth, async (req, res) => {
+  const note = await Note.findOne({
+    _id: req.params.id,
+  }).lean();
+
+  if (!note) {
+    return res.render('error/404');
+  }
+
+  if (note.user != req.user.id) {
+    res.redirect('/notes');
+  } else {
+    res.render('notes/edit', {
+      note,
+    });
+  }
+});
+
+// @desc Add Form Working function - Update note
+// @route PUT /notes/:id
+router.put('/:id', ensureAuth, async (req, res) => {
+  let note = await Note.findById(req.params.id).lean();
+
+  if (!note) {
+    return res.render('error/404');
+  }
+
+  if (note.user != req.user.id) {
+    res.redirect('/notes');
+  } else {
+    note = await Note.findOneAndUpdate({ _id: req.params.id }, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    res.redirect('/dashboard');
+  }
+});
+
 module.exports = router;
